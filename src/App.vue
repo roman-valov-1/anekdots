@@ -1,6 +1,6 @@
 <template>
    <div class="app">
-      <search-form/>
+      <search-form @getList="getAnekdots"/>
       <anekdots-list :anekdots="anekdots"/>
    </div>
 </template>
@@ -16,12 +16,12 @@ export default {
    },
    data() {
       return {
-         anekdots: [
-            {id:1, body: "sadasdasd"},
-            {id:2, body: "sadasdasd"},
-            {id:3, body: "sadasdasd"},
-            {id:4, body: "sadasdasd"},
-         ]
+         anekdots: []
+      }
+   },
+   methods: {
+      getAnekdots(array) {
+         this.anekdots = array;
       }
    }
 }

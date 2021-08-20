@@ -32,6 +32,9 @@ export default {
    props: {
       anekdots: {
          type: Array
+      },
+      keysLocalStorage: {
+         type: Array
       }
    }
 }

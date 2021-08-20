@@ -5,6 +5,7 @@
          @like="likeAnekdot" 
          @dislike="dislikeAnekdot"
          :anekdots="anekdots"
+         :keysLocalStorage="keysLocalStorage"
       />
    </div>
 </template>
@@ -20,23 +21,36 @@ export default {
    },
    data() {
       return {
-         anekdots: []
+         anekdots: [],
+         keysLocalStorage: []
+      }
+   },
+   mounted() {
+      if (localStorage.key) {
+         this.keysLocalStorage = Object.keys(localStorage)
+         console.log(this.keysLocalStorage)
       }
    },
    methods: {
       getAnekdots(array) {
-         this.anekdots = array.map(el => ({...el, liked: false}));
-         console.log(this.anekdots);
+         this.anekdots = array.map(el => {
+            if (this.keysLocalStorage.includes(String(el.id))) {
+               return {...el, liked: true};
+            } else {
+               return {...el, liked: false};
+            }
+         });
+         
       },
       likeAnekdot(anekdot) {
          let likedAnekdot = this.anekdots.find(el => el.id === anekdot.id);
          likedAnekdot.liked = true;
-         console.log(this.anekdots);
+         localStorage.setItem(`${likedAnekdot.id}`, JSON.stringify(likedAnekdot));
       },
       dislikeAnekdot(anekdot) {
          let dislikedAnekdot = this.anekdots.find(el => el.id === anekdot.id);
          dislikedAnekdot.liked = false;
-         console.log(this.anekdots);
+         localStorage.removeItem(`${dislikedAnekdot.id}`);
       }
    }
 }

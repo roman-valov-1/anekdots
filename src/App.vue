@@ -1,7 +1,11 @@
 <template>
    <div class="app">
       <search-form @getList="getAnekdots"/>
-      <anekdots-list :anekdots="anekdots"/>
+      <anekdots-list 
+         @like="likeAnekdot" 
+         @dislike="dislikeAnekdot"
+         :anekdots="anekdots"
+      />
    </div>
 </template>
 
@@ -21,7 +25,18 @@ export default {
    },
    methods: {
       getAnekdots(array) {
-         this.anekdots = array;
+         this.anekdots = array.map(el => ({...el, liked: false}));
+         console.log(this.anekdots);
+      },
+      likeAnekdot(anekdot) {
+         let likedAnekdot = this.anekdots.find(el => el.id === anekdot.id);
+         likedAnekdot.liked = true;
+         console.log(this.anekdots);
+      },
+      dislikeAnekdot(anekdot) {
+         let dislikedAnekdot = this.anekdots.find(el => el.id === anekdot.id);
+         dislikedAnekdot.liked = false;
+         console.log(this.anekdots);
       }
    }
 }

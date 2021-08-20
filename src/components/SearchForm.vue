@@ -58,5 +58,6 @@ export default {
    width: 100%;
    padding: 5px 10px;
    margin-bottom: 10px;
+   cursor: pointer;
 }
 </style>

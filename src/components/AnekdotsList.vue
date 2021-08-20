@@ -1,6 +1,6 @@
 <template>
    <div class="anekdotsList">
-      <div v-for="anekdot in anekdots" >
+      <div v-for="anekdot in anekdots" :key="anekdot.id">
          <div v-if="anekdot.liked === true" class="anekdotItemLiked">
             {{anekdot.joke}}
             <div>
